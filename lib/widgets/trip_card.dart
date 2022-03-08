@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bagtrackerpro/classes/trip.dart';
 import 'package:bagtrackerpro/screens/trip_details.dart';
@@ -22,6 +22,7 @@ class TripCard extends StatelessWidget {
         pushNewScreen(context, screen: TripDetails(tripDetails: trip));
       },
       child: Container(
+        margin: EdgeInsets.only(top: 20),
         padding: EdgeInsets.all(15),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -35,7 +36,14 @@ class TripCard extends StatelessWidget {
               ),
             ]),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              trip.startDate,
+              style: TextStyle(
+                color: Colors.grey,
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -52,93 +60,53 @@ class TripCard extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 12,
+              height: 5,
             ),
             Divider(
               color: Colors.grey,
             ),
             SizedBox(
-              height: 12,
+              height: 5,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SvgPicture.asset('images/airplane_to.svg'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trip.startDate,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      trip.startTime,
-                    ),
-                  ],
-                ),
-                SvgPicture.asset('images/airplane_back.svg'),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trip.endDate,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(trip.endTime),
-                  ],
-                ),
-                SvgPicture.asset('images/ticket.svg'),
-                Column(
-                  children: [
-                    Text(
-                      'Booking',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(trip.bookingNumber),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            trip.luggageStatus == LuggageStatus.ok
+                ? Row(
                     children: [
                       Text(
-                        trip.lastUpdateTime,
+                        'Luggage on track',
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
                         ),
                       ),
-                      Text(trip.lastUpdateDate),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        trip.updateName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                      SizedBox(
+                        width: 5,
                       ),
-                      Text(trip.airCraftNumber),
+                      Icon(
+                        Icons.check_circle_outline_rounded,
+                        color: Colors.green,
+                        size: 30,
+                      ),
                     ],
                   )
-                ],
-              ),
-            )
+                : Row(
+                    children: [
+                      Text(
+                        'Luggage delayed',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Icon(
+                        Icons.warning,
+                        color: Colors.yellow,
+                        size: 30,
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),

@@ -46,19 +46,10 @@ class AddBag extends StatelessWidget {
                         Navigator.pop(context, 'OK');
                         loggedInUser.trips!.add(
                           Trip(
+                            startDate: '5 January, 2022',
                             startCity: 'Gothenburg',
                             endCity: 'Berlin',
-                            startAirport: 'Landvetter',
-                            endAirport: 'Brandenburg',
-                            startDate: '13 March',
-                            startTime: '13:00',
-                            endDate: '20 march',
-                            endTime: '20:00',
                             bookingNumber: 'ACOPB9',
-                            lastUpdateDate: '13 March',
-                            lastUpdateTime: '14:00',
-                            updateName: 'Loaded',
-                            airCraftNumber: 'ABC1232',
                             bags: [
                               Bag(
                                 bagStatus: [

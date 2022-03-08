@@ -48,29 +48,6 @@ class TripDetails extends StatelessWidget {
       body: Column(
         children: [
           Image.asset('images/waitingforairplane.png'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 65),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  '${tripDetails.startAirport}',
-                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
-                ),
-                SvgPicture.asset('images/Avion.svg'),
-                Text(
-                  '${tripDetails.endAirport}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

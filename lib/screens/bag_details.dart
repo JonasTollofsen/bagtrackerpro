@@ -52,12 +52,6 @@ class BagDetails extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  trip.startAirport,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
                 SizedBox(
                   width: 20,
                 ),
@@ -66,12 +60,6 @@ class BagDetails extends StatelessWidget {
                 ),
                 SizedBox(
                   width: 20,
-                ),
-                Text(
-                  trip.endAirport,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
                 ),
               ],
             ),
@@ -85,12 +73,6 @@ class BagDetails extends StatelessWidget {
               Text(
                 trip.startDate,
                 style: TextStyle(fontWeight: FontWeight.w700),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Text(
-                trip.startTime,
               ),
             ],
           ),

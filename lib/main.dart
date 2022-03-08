@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bagtrackerpro/screens/add_bag.dart';
 import 'package:bagtrackerpro/screens/login_screen.dart';
@@ -7,51 +7,113 @@ import 'package:bagtrackerpro/screens/report.dart';
 import 'package:bagtrackerpro/screens/settings.dart';
 import 'package:bagtrackerpro/screens/track.dart';
 import 'package:bagtrackerpro/screens/trip_details.dart';
+import 'package:bagtrackerpro/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(
-    MaterialApp(
-      home: MyApp(),
-      initialRoute: '/',
-      routes: {
-        '/track': (context) => Track(),
-        '/report': (context) => Report(),
-        '/addbag': (context) => AddBag(),
-        '/profile': (context) => Profile(),
-        '/settings': (context) => Settings(),
-      },
-    ),
+    StartApp(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class StartApp extends StatelessWidget {
+  const StartApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    PersistentTabController _controller;
-    _controller = PersistentTabController(initialIndex: 0);
-    return PersistentTabView(
-      context,
-      controller: _controller,
-      screens: _buildScreens(),
-      items: _navBarsItems(),
-      popAllScreensOnTapOfSelectedTab: true,
-      navBarStyle: NavBarStyle.style15,
-      backgroundColor: Color(0xFF450783),
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: MaterialApp(
+        home: LoginScreen(),
       ),
     );
   }
 }
 
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> _pages = <Widget>[
+      Track(),
+      Report(),
+      AddBag(),
+      Profile(),
+      Settings(),
+    ];
+    return Scaffold(
+      body: Center(
+        child: _pages.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.white,
+        unselectedItemColor: Color(0xFF9CA3AF),
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF450783),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.settings,
+              ),
+              label: 'Track'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Report',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_circle_outline,
+              size: 40,
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              FontAwesomeIcons.user,
+            ),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+            ),
+            label: 'Settings',
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+}
+
+/*
 List<Widget> _buildScreens() {
   return [
     Track(),
@@ -100,3 +162,17 @@ List<PersistentBottomNavBarItem> _navBarsItems() {
     ),
   ];
 }
+PersistentTabController _controller;
+_controller = PersistentTabController(initialIndex: 0);
+return PersistentTabView(
+context,
+controller: _controller,
+screens: _buildScreens(),
+items: _navBarsItems(),
+popAllScreensOnTapOfSelectedTab: true,
+navBarStyle: NavBarStyle.style14,
+backgroundColor: Color(0xFF450783),
+decoration: NavBarDecoration(
+borderRadius: BorderRadius.circular(10.0),
+),
+)*/
