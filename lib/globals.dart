@@ -9,30 +9,29 @@ User loggedInUser = User(
     Trip(
       startCity: 'Gothenburg',
       endCity: 'Amsterdam',
-      startDate: '14 aug.',
+      startDate: '10 February, 2022',
       bookingNumber: 'QLBQPU',
       active: true,
       luggageStatus: LuggageStatus.ok,
       bags: [
         Bag(
-            bagTagNumber: 7009453112,
-            bagStatus: [
-              BagStatus(
-                status: 'Checked in',
-                updateTime: "13:00",
-                airportCode: 'GOTE',
-                longDescription: 'Bag is checked in mate',
-                onTrack: true,
-              )
-            ],
-            startCity: 'Gothenburg',
-            endCity: 'Amsterdam,'),
+          bagTagNumber: 7009453112,
+          bagStatus: [
+            BagStatus(
+              status: 'Checked in',
+              updateTime: "13:00",
+              airportCode: 'GOT',
+              longDescription: 'Bag is checked in',
+              onTrack: true,
+            )
+          ],
+        ),
       ],
     ),
     Trip(
       startCity: 'Amsterdam',
       endCity: 'Rio de Janeiro',
-      startDate: '17 jun.',
+      startDate: '12 february, 2022',
       bookingNumber: 'AFBQPR',
       active: true,
       luggageStatus: LuggageStatus.warning,
@@ -55,8 +54,6 @@ User loggedInUser = User(
               onTrack: true,
             ),
           ],
-          startCity: 'Gothenburg',
-          endCity: 'Rio de Janeiro',
         ),
         Bag(
           bagStatus: [
@@ -69,8 +66,6 @@ User loggedInUser = User(
             ),
           ],
           bagTagNumber: 7001462444,
-          startCity: 'Gothenburg',
-          endCity: 'Rio de Janeiro',
         ),
       ],
     )

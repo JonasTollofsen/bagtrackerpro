@@ -3,8 +3,11 @@
 import 'package:bagtrackerpro/classes/bag_status.dart';
 import 'package:bagtrackerpro/classes/trip.dart';
 import 'package:bagtrackerpro/globals.dart';
+import 'package:bagtrackerpro/screens/track.dart';
+import 'package:bagtrackerpro/widgets/custom_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import '../classes/airline.dart';
 import '../classes/bag.dart';
 import '../widgets/app_bar.dart';
@@ -28,6 +31,33 @@ class AddBag extends StatelessWidget {
                   border: OutlineInputBorder(),
                   labelText: 'Search with booking ID'),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Card(
+              child: ExpansionTile(
+                title: Text(
+                  'Airline',
+                  style: TextStyle(fontSize: 22),
+                ),
+                children: [
+                  AirlineDesc(
+                    image: 'images/sas.png',
+                    airlineName: 'SAS - Scandinavian Airlines',
+                  ),
+                  AirlineDesc(
+                      airlineName: 'DLH - Lufthansa',
+                      image: 'images/lufthansa.png'),
+                  AirlineDesc(
+                    airlineName: 'AFR - Air France',
+                    image: 'images/airfrance.png',
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 30,
           ),
           GestureDetector(
             onTap: () {
@@ -62,8 +92,6 @@ class AddBag extends StatelessWidget {
                                       onTrack: true)
                                 ],
                                 bagTagNumber: 7009932211,
-                                startCity: 'Gothenburg',
-                                endCity: 'Berlin',
                               ),
                             ],
                           ),
@@ -92,6 +120,33 @@ class AddBag extends StatelessWidget {
                 color: Color(0xFF623C87),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AirlineDesc extends StatelessWidget {
+  String airlineName;
+  String image;
+  AirlineDesc({
+    required this.airlineName,
+    required this.image,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(airlineName),
+          Image.asset(
+            image,
+            width: 55,
           ),
         ],
       ),

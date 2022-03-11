@@ -28,10 +28,10 @@ class LoginScreen extends StatelessWidget {
             buildCustomAppBar(headerTitle: 'TravelPro', hidesubtitle: false),
         body: Stack(
           children: [
-            Image.asset('images/going_on_vacation.png'),
+            /*Image.asset('images/going_on_vacation.png'),*/
             Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   decoration: BoxDecoration(color: Colors.white),
@@ -164,12 +164,21 @@ class _AuthAppState extends State<AuthApp> {
                           },
                         );
                         if (_key.currentState!.validate()) {
+                          _key.currentState!.save();
                           try {
                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                )
+                                .then(
+                                  (value) => Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) =>
+                                              MyApp()),
+                                      (route) => false),
+                                );
                           } on FirebaseAuthException catch (error) {
                             errorMessage = error.message!;
                           }
@@ -197,29 +206,6 @@ class _AuthAppState extends State<AuthApp> {
                           color: Color(0xFF450783),
                         ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: user == null
-                          ? null
-                          : () async {
-                              setState(() {
-                                isLoading = true;
-                                errorMessage = '';
-                              });
-                              FocusScopeNode currentFocus =
-                                  FocusScope.of(context);
-                              if (!currentFocus.hasPrimaryFocus) {
-                                currentFocus.unfocus();
-                              }
-                              try {
-                                await FirebaseAuth.instance.signOut();
-                              } on FirebaseAuthException catch (error) {
-                                errorMessage = error.message!;
-                                setState(() {});
-                              }
-                              setState(() => isLoading = false);
-                            },
-                      child: Text('Log out'),
                     ),
                   ],
                 )

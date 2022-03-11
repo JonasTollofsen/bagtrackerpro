@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bagtrackerpro/widgets/app_bar.dart';
 import 'package:bagtrackerpro/widgets/bag_card.dart';
-import 'package:bagtrackerpro/screens/bag_details.dart';
+import 'package:bagtrackerpro/screens/bag_timeline.dart';
 import 'package:bagtrackerpro/screens/track.dart';
 import 'package:bagtrackerpro/classes/trip.dart';
 import 'package:flutter/material.dart';
@@ -11,61 +12,74 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 class TripDetails extends StatelessWidget {
   int counter = 0;
   Trip tripDetails;
+
   TripDetails({Key? key, required this.tripDetails}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Track',
-          style: TextStyle(
-            fontSize: 30,
-          ),
-        ),
-        bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 50),
-          child: Container(
-            width: double.infinity,
-            height: 50,
-            child: Center(
-              child: Text(
-                '${tripDetails.startCity} to ${tripDetails.endCity}',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              color: Color(0xFF633F87),
-            ),
-          ),
-        ),
-        backgroundColor: Color(0xFF450783),
-      ),
+      appBar: buildCustomAppBar(
+          headerTitle: 'Track',
+          subTitle: '${tripDetails.startCity} to ${tripDetails.endCity}'),
       body: Column(
         children: [
-          Image.asset('images/waitingforairplane.png'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Aug 14',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15,
+          tripDetails.luggageStatus == LuggageStatus.ok
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 120,
+                      ),
+                      Icon(
+                        Icons.check_circle_outline,
+                        color: Colors.green,
+                        size: 35,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Flexible(
+                        child: Text(
+                          'Relax, all your bags are on track',
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 120,
+                      ),
+                      Icon(
+                        Icons.warning,
+                        color: Colors.yellow,
+                        size: 35,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Flexible(
+                        child: Text(
+                          'There is a problem with one or more of your bags, see details below',
+                          softWrap: true,
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Text(
-                '12:15 PM',
-              ),
-            ],
-          ),
           Expanded(
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
@@ -76,27 +90,47 @@ class TripDetails extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: ListView(
-                  children: [
-                    Text(
-                      'Checked in bags',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                child: RefreshIndicator(
+                  color: Color(0xFF450783),
+                  onRefresh: pullRefresh,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Checked in bags',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                    for (var i = 0; tripDetails.bags.length > i; i++)
-                      BagCard(
-                        bag: tripDetails.bags[i],
-                        trip: tripDetails,
+                      SizedBox(
+                        height: 20,
                       ),
-                  ],
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            for (var i = 0; tripDetails.bags.length > i; i++)
+                              BagCard(
+                                bag: tripDetails.bags[i],
+                                trip: tripDetails,
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> pullRefresh() async {
+    await Future.delayed(
+      Duration(seconds: 2),
     );
   }
 }

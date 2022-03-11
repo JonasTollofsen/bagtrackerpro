@@ -14,38 +14,6 @@ class Track extends StatefulWidget {
 }
 
 class _TrackState extends State<Track> {
-  bool currentSelected = true;
-  ListView listOfTrips = ListView();
-  late List<TripCard> listOfTripCards;
-
-  bool seeAllSelected = false;
-  List<Trip>? activeTrips;
-  int? amountOfTrips = loggedInUser.trips?.length;
-
-  @override
-  initState() {
-    listOfTripCards = List.generate(
-      loggedInUser.trips!.length,
-      (index) => TripCard(
-        trip: loggedInUser.trips![index],
-      ),
-    );
-
-    listOfTrips = ListView(
-      children: [
-        for (var i = 0; listOfTripCards.length > i; i++) listOfTripCards[i],
-      ],
-    );
-    for (var i = 0; loggedInUser.trips!.length > i; i++) {
-      listOfTripCards.add(
-        TripCard(
-          trip: loggedInUser.trips![i],
-        ),
-      );
-    }
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
@@ -53,7 +21,15 @@ class _TrackState extends State<Track> {
           appBar: buildAppBar(),
           body: TabBarView(
             children: [
-              CurrentTrips(),
+              Stack(
+                children: [
+                  Positioned(
+                    child: Image.asset('images/waitingforairplane.png'),
+                    bottom: 5,
+                  ),
+                  CurrentTrips(),
+                ],
+              ),
               CurrentTrips(),
             ],
           )),

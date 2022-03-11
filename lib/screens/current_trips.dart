@@ -55,7 +55,7 @@ class _CurrentTripsState extends State<CurrentTrips> {
         color: Color(0xFF450783),
         semanticsLabel: 'test',
         onRefresh: pullRefresh,
-        child: listOfTrips!,
+        child: listOfTrips,
       ),
     );
   }
