@@ -100,10 +100,9 @@ class TripCard extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Icon(
-                        Icons.warning,
-                        color: Colors.yellow,
-                        size: 30,
+                      Image.asset(
+                        'images/warning.png',
+                        height: 28,
                       ),
                     ],
                   ),

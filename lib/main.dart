@@ -17,6 +17,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'constants.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -70,7 +72,7 @@ class _MyAppState extends State<MyApp> {
       items: _navBarsItems(),
       popAllScreensOnTapOfSelectedTab: true,
       navBarStyle: NavBarStyle.style15,
-      backgroundColor: Color(0xFF450783),
+      backgroundColor: primaryColorDark,
       decoration: NavBarDecoration(
         borderRadius: BorderRadius.circular(10.0),
       ),

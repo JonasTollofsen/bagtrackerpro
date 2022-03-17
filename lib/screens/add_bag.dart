@@ -2,6 +2,7 @@
 
 import 'package:bagtrackerpro/classes/bag_status.dart';
 import 'package:bagtrackerpro/classes/trip.dart';
+import 'package:bagtrackerpro/constants.dart';
 import 'package:bagtrackerpro/globals.dart';
 import 'package:bagtrackerpro/screens/track.dart';
 import 'package:bagtrackerpro/widgets/custom_button.dart';
@@ -116,8 +117,8 @@ class AddBag extends StatelessWidget {
                 ),
               ),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
-                color: Color(0xFF623C87),
+                borderRadius: BorderRadius.circular(10),
+                color: primaryColorLight,
               ),
             ),
           ),

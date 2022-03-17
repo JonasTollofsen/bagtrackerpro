@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:bagtrackerpro/classes/trip.dart';
+import 'package:bagtrackerpro/constants.dart';
 import 'package:bagtrackerpro/screens/current_trips.dart';
 import 'package:bagtrackerpro/widgets/trip_card.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,10 @@ class _TrackState extends State<Track> {
               Stack(
                 children: [
                   Positioned(
-                    child: Image.asset('images/waitingforairplane.png'),
+                    child: Image.asset(
+                      'images/waitingforairplane.png',
+                      width: 380,
+                    ),
                     bottom: 5,
                   ),
                   CurrentTrips(),
@@ -59,11 +63,11 @@ class _TrackState extends State<Track> {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-            color: Color(0xFF633F87),
+            color: primaryColorLight,
           ),
         ),
       ),
-      backgroundColor: Color(0xFF450783),
+      backgroundColor: primaryColorDark,
     );
   }
 }

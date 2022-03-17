@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:bagtrackerpro/constants.dart';
 import 'package:flutter/material.dart';
 
 AppBar buildCustomAppBar(
@@ -33,10 +34,10 @@ AppBar buildCustomAppBar(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(20),
                 ),
-                color: Color(0xFF633F87),
+                color: primaryColorLight,
               ),
             ),
           ),
-    backgroundColor: Color(0xFF450783),
+    backgroundColor: primaryColorDark,
   );
 }

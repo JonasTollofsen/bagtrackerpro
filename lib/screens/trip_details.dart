@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bagtrackerpro/constants.dart';
 import 'package:bagtrackerpro/widgets/app_bar.dart';
 import 'package:bagtrackerpro/widgets/bag_card.dart';
 import 'package:bagtrackerpro/screens/bag_timeline.dart';
@@ -60,10 +61,9 @@ class TripDetails extends StatelessWidget {
                       SizedBox(
                         height: 120,
                       ),
-                      Icon(
-                        Icons.warning,
-                        color: Colors.yellow,
-                        size: 35,
+                      Image.asset(
+                        'images/warning.png',
+                        width: 35,
                       ),
                       SizedBox(
                         width: 10,
@@ -86,7 +86,7 @@ class TripDetails extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color(0xFF7B5A9C).withOpacity(.2),
+                color: secondaryColorLight,
               ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),

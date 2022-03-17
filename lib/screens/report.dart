@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:bagtrackerpro/constants.dart';
 import 'package:bagtrackerpro/screens/choose_bag_report.dart';
 import 'package:bagtrackerpro/screens/lost_delayed.dart';
 import 'package:bagtrackerpro/screens/track.dart';
@@ -15,8 +16,7 @@ class Report extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildCustomAppBar(
-          headerTitle: 'Report bag', subTitle: 'What happened to your bag?'),
+      appBar: buildCustomAppBar(headerTitle: 'Report bag'),
       body: Column(
         children: [
           SizedBox(
@@ -24,18 +24,15 @@ class Report extends StatelessWidget {
           ),
           Image.asset('images/lost_bag.png', width: 200),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButton(
-                buttonText: 'Lost/delayed',
+                buttonText: 'New  report',
                 screen: ChooseBagReport(),
-              ),
-              CustomButton(
-                buttonText: 'Damaged',
-                screen: LostDelayed(),
+                buttonColor: primaryColorLight,
               ),
             ],
           ),
@@ -49,10 +46,10 @@ class Report extends StatelessWidget {
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Color(0xFF7B5A9C).withOpacity(.2),
+                color: secondaryColorLight,
               ),
               child: RefreshIndicator(
-                  color: Color(0xFF7B5A9C),
+                  color: primaryColorLight,
                   onRefresh: pullRefresh,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,9 +89,11 @@ Future<void> pullRefresh() async {
 class CustomButton extends StatelessWidget {
   final String buttonText;
   final Widget? screen;
+  final Color? buttonColor;
   CustomButton({
     required this.buttonText,
     this.screen,
+    this.buttonColor,
   });
 
   @override
@@ -110,9 +109,10 @@ class CustomButton extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Color(
-            0xFF633F87,
-          ),
+          color: buttonColor ??
+              Color(
+                0xFF633F87,
+              ),
         ),
         child: Center(
           child: Text(

@@ -2,6 +2,8 @@
 
 import 'dart:developer';
 
+import 'package:bagtrackerpro/constants.dart';
+import 'package:bagtrackerpro/screens/themes.dart';
 import 'package:bagtrackerpro/widgets/app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +50,16 @@ class _ProfileState extends State<Profile> {
             Divider(
               thickness: 2,
             ),
-            ProfileRow(text: 'About App', icon: FontAwesomeIcons.infoCircle),
+            ProfileRow(
+              text: 'Ligh/dark theme',
+              icon: FontAwesomeIcons.infoCircle,
+              onTap: () {
+                pushNewScreen(
+                  context,
+                  screen: Themes(),
+                );
+              },
+            ),
             Divider(
               thickness: 2,
             ),
@@ -92,8 +103,8 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Slider(
-                      activeColor: Color(0xFF623C87),
-                      inactiveColor: Color(0xFF450783).withOpacity(.3),
+                      activeColor: primaryColorLight,
+                      inactiveColor: secondaryColorDark,
                       label: labelText(notificationFrequency),
                       value: notificationFrequency,
                       onChanged: (newFrequency) {
